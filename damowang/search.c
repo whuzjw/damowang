@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "search.h"
 #include "queue.h"
-#include "graph.h"
 
 char* shortestPath(int u, int v, char algorithm[], char fileName[]) {
 	// create a graph
@@ -10,8 +9,12 @@ char* shortestPath(int u, int v, char algorithm[], char fileName[]) {
 	createGraph(g, fileName);
 	// search
 	const int n = g->n;
-	int visited[n] = { 0 };
-	int pred[n] = { -1 };
+	int* visited = (int*)malloc(n*sizeof(int));
+	int* pred = (int*)malloc(n*sizeof(int));
+	for(int i = 0; i < n; i++){
+		visited[i] = 0;
+		pred[i] = -1;
+	}
 	if (algorithm == "DFS") DFS(u, v, g, visited, pred);
 	else if (algorithm == "BFS") BFS(u, v, g, visited, pred);
 	else if (algorithm == "Dijkstra") Dijkstra(u, v, g);
@@ -29,6 +32,8 @@ char* shortestPath(int u, int v, char algorithm[], char fileName[]) {
 		sprintf(path, "%s -> %d", path, arr[i]);
 	}
 	removeGraph(g);
+	free(visited);
+	free(pred);
 	return path;
 }
 void DFS(int u, int v, graph* g, int* visited, int* pred) {
@@ -45,7 +50,7 @@ void DFS(int u, int v, graph* g, int* visited, int* pred) {
 void BFS(int u, int v, graph* g, int* visited, int* pred) {
 	queue q;
 	createQueue(&q);
-	enq(u);
+	enq(&q, u);
 	while (!empty(&q)) {
 		int i = deq(&q);
 		int flag = 0;

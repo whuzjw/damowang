@@ -1,3 +1,4 @@
+#include <malloc.h>
 #include "stats.h"
 #include "graph.h"
 
