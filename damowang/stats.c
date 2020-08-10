@@ -1,5 +1,6 @@
 #include "stats.h"
 #include "graph.h"
+
 int numberOfEdges(char name[]) {
 	graph* g = (graph*)malloc(sizeof(graph));
 	createGraph(g, name);

@@ -1,10 +1,5 @@
 #include "queue.h"
-#define MAXSIZE 100
-typedef struct queue {
-	int arr[MAXSIZE];
-	int head;
-	int tail;
-}queue;
+
 int empty(queue* q) {
 	return (q->head >= q->tail) ? 1 : 0;
 }

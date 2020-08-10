@@ -1,12 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "search.h"
-#include "graph.h"
 #include "queue.h"
+#include "graph.h"
+
 char* shortestPath(int u, int v, char algorithm[], char fileName[]) {
 	// create a graph
 	struct graph* g = (struct graph*)malloc(sizeof(struct graph));
 	createGraph(g, fileName);
 	// search
-	int n = g->n;
+	const int n = g->n;
 	int visited[n] = { 0 };
 	int pred[n] = { -1 };
 	if (algorithm == "DFS") DFS(u, v, g, visited, pred);
